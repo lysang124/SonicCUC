@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>广院之声 · 声景叙事</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav id="site-nav">
+  <div class="nav-logo">广院之声</div>
+  <ul class="nav-links">
+    <li><a href="#cover">首页</a></li>
+    <li><a href="#methods">方法</a></li>
+    <li><a href="#charts">参数</a></li>
+    <li><a href="#map">地图</a></li>
+    <li><a href="#terrain">地形</a></li>
+  </ul>
+  <div class="nav-tag">CUC · 2026</div>
+</nav>
+
+<!-- 封面 -->
+<section id="cover" class="section section--cover">
+  <div class="cover-gradient"></div>
+  <canvas id="cover-wave"></canvas>
+
+  <div class="cover-content">
+    <canvas id="particle-canvas"></canvas>
+    <div class="cover-eyebrow"><span class="dot"></span>中国传媒大学 · 声音研究实验室</div>
+    <p class="cover-question">你听过校园里的声音吗？</p>
+   <h1 class="cover-title">
+  <span class="line" data-delay="0">广</span>
+  <span class="line" data-delay="1">院</span>
+  <span class="line" data-delay="2">之</span>
+  <span class="line" data-delay="3">声</span>
+</h1>
+
+    <p class="cover-subtitle">Soundscape Narratives · CUC</p>
+    <div class="cover-meta">
+      <div class="meta-item"><span class="meta-num" id="cnt-locations">3</span><span class="meta-label">采样地点</span></div>
+      <div class="meta-divider"></div>
+      <div class="meta-item"><span class="meta-num" id="cnt-minutes">10</span><span class="meta-label">录音时长(分钟)</span></div>
+      <div class="meta-divider"></div>
+      <div class="meta-item"><span class="meta-num" id="cnt-params">4</span><span class="meta-label">声学参数</span></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint"><span>向下探索</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- 研究方法 -->
+<section id="methods" class="section section--methods">
+  <div class="section-inner">
+    <header class="section-header">
+      <div class="section-tag">§ 01 · 研究方法</div>
+      <h2 class="section-title">我们如何<br/>聆听自然</h2>
+      <p class="section-desc">从人出发，以数据还原，重建声景的完整叙事</p>
+    </header>
+
+    <div class="method-grid">
+      <article class="method-card" data-idx="0">
+        <div class="card-img" data-img="intro-binaural">
+          <img src="assets/images/intro-binaural.jpg" alt="双耳录音">
+          <div class="card-tag">01</div>
+        </div>
+        <div class="card-body">
+          <h3>双耳录音</h3>
+          <p>使用 KEMAR 仿真人头麦克风，在目标空间静默录音 5 分钟，还原人耳真实空间听觉，捕捉 HRTF 头部相关传递函数，构建沉浸式声场记录。</p>
+          <div class="card-spec">
+            <span>48 kHz / 24-bit</span>
+            <span>双通道 XY</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="method-card" data-idx="1">
+        <div class="card-img" data-img="intro-sampling">
+          <img src="assets/images/intro-sampling.jpg" alt="声压级采样">
+          <div class="card-tag">02</div>
+        </div>
+        <div class="card-body">
+          <h3>声压级采样</h3>
+          <p>采用 NTI XL2 声级计以 A/C 计权连续采集等效声压级 Leq、最大值 Lmax、背景噪声 L90，构建时间序列剖面，量化环境噪声动态变化。</p>
+          <div class="card-spec">
+            <span>IEC 1672-1</span>
+            <span>Class 1 精度</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="method-card" data-idx="2">
+        <div class="card-img" data-img="intro-params">
+          <img src="assets/images/intro-params.jpg" alt="心理声学参数">
+          <div class="card-tag">03</div>
+        </div>
+        <div class="card-body">
+          <h3>心理声学参数</h3>
+          <p>通过 ArtemiS Suite 提取响度、粗糙度、波动强度、尖锐度四项心理声学指标，基于 Zwicker 模型实现主观听觉感受的客观量化。</p>
+          <div class="card-spec">
+            <span>ISO 532-1</span>
+            <span>Zwicker 模型</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="method-gap-text">
+      本次研究以校园典型声景空间为对象，通过标准化录音、精准声学测量与心理声学建模，将无形的声音环境转化为可可视化、可对比、可交互的数据体系。
+      从空间采集到参数解析，从时域变化到三维呈现，我们试图重建每一处场所独有的声音叙事，让环境的听觉肌理被看见、被读懂、被感知。
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-mark">"</div>
+      <blockquote>声景不是背景——场所精神的音频指纹。</blockquote>
+      <cite>— R. Murray Schafer, <em>The Soundscape: Our Sonic Environment</em></cite>
+    </div>
+  </div>
+</section>
+
+<!-- 采样地点 -->
+<section id="locations-intro" class="section section--locs">
+  <div class="section-inner">
+    <header class="section-header">
+      <div class="section-tag">§ 02 · 采样地点</div>
+      <h2 class="section-title">三个声景<br/>六种叙事</h2>
+    </header>
+    <div class="method-grid">
+      <article class="method-card loc-card" data-loc="A">
+        <div class="card-img loc-img" data-img="piano-lake">
+          <img src="assets/images/piano-lake.jpg" alt="钢琴湖">
+          <div class="card-tag">A</div>
+        </div>
+        <div class="card-body">
+          <h3>钢琴湖</h3>
+          <p>自然主导声景，以水声、鸟鸣为主，环境静谧舒适。</p>
+          <div class="card-spec">
+            <span>Leq ≈ 62 dB</span>
+            <span>自然主导</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="method-card loc-card" data-loc="C">
+        <div class="card-img loc-img" data-img="birds-water">
+          <img src="assets/images/birds-water.jpg" alt="一教池塘">
+          <div class="card-tag">C</div>
+        </div>
+        <div class="card-body">
+          <h3>一教池塘</h3>
+          <p>人类主导声景，人声、活动噪音较多，声压级偏高。</p>
+          <div class="card-spec">
+            <span>Leq ≈ 74 dB</span>
+            <span>人类主导</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="method-card loc-card" data-loc="B">
+        <div class="card-img loc-img" data-img="nature-loop">
+          <img src="assets/images/nature-loop.jpg" alt="古树保护区">
+          <div class="card-tag">B</div>
+        </div>
+        <div class="card-body">
+          <h3>古树保护区</h3>
+          <p>自然与人类声景过渡区，风声、虫鸣与远处人声混合。</p>
+          <div class="card-spec">
+            <span>Leq ≈ 68 dB</span>
+            <span>过渡区</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 参数图表 -->
+<section id="charts" class="section section--charts">
+  <div class="section-inner">
+    <header class="section-header">
+      <div class="section-tag">§ 03 · 时变参数</div>
+      <h2 class="section-title">声学参数<br/>的时间演变</h2>
+      <p class="section-desc">短时连续采样（10分钟窗口），三处地点同步测量</p>
+      <p class="data-method">数据基于连续声压级采样（Leq）</p>
+    </header>
+    <div class="chart-controls">
+      <div class="param-tabs" id="param-tabs">
+        <button class="ptab active" data-param="spl">声压级 SPL</button>
+        <button class="ptab" data-param="loudness">响度 Loudness</button>
+        <button class="ptab" data-param="roughness">粗糙度 Roughness</button>
+        <button class="ptab" data-param="fluctuation">波动强度 Fluctuation</button>
+      </div>
+    </div>
+    <div class="chart-wrapper"><canvas id="main-chart"></canvas></div>
+    <div class="chart-legend" id="chart-legend">
+      <div class="legend-item" data-loc="A"><span class="legend-dot legend-dot-a"></span>钢琴湖</div>
+      <div class="legend-item" data-loc="B"><span class="legend-dot legend-dot-b"></span>古树保护区</div>
+      <div class="legend-item" data-loc="C"><span class="legend-dot legend-dot-c"></span>一教池塘</div>
+    </div>
+  </div>
+</section>
+
+<!-- 声景地图 -->
+<section id="map" class="section section--map">
+  <div class="section-inner section-inner--wide">
+    <header class="section-header">
+      <div class="section-tag">§ 04 · 空间分布</div>
+      <h2 class="section-title">声景地图</h2>
+      <p class="section-desc">点击标记点查看详细参数 · 切换时段观察空间变化</p>
+    </header>
+    <div class="map-layout">
+      <div class="map-sidebar">
+        <div class="map-time-ctrl">
+          <div class="ctrl-label">采样时段</div>
+          <div class="time-btns" id="time-btns">
+            <button class="tbtn active" data-time="morning">🌅 早晨<br/><small>07–09h</small></button>
+            <button class="tbtn" data-time="noon">☀️ 正午<br/><small>12–14h</small></button>
+            <button class="tbtn" data-time="evening">🌆 傍晚<br/><small>17–19h</small></button>
+          </div>
+        </div>
+        <div class="map-info-panel" id="map-info-panel">
+          <div class="info-placeholder"><div class="info-icon">◎</div><p>点击地图标记<br/>查看声景数据</p></div>
+          <div class="info-content">
+            <div class="info-name" id="info-name">—</div>
+            <div class="info-code" id="info-code">—</div>
+            <div class="info-params">
+              <div class="iparam"><span class="iparam-label">SPL (dB)</span><span class="iparam-val" id="ip-spl">—</span><div class="iparam-bar"><div class="iparam-fill" id="ib-spl"></div></div></div>
+              <div class="iparam"><span class="iparam-label">响度 (sone)</span><span class="iparam-val" id="ip-loud">—</span><div class="iparam-bar"><div class="iparam-fill" id="ib-loud"></div></div></div>
+              <div class="iparam"><span class="iparam-label">粗糙度 (asper)</span><span class="iparam-val" id="ip-rough">—</span><div class="iparam-bar"><div class="iparam-fill" id="ib-rough"></div></div></div>
+              <div class="iparam"><span class="iparam-label">波动强度 (vacil)</span><span class="iparam-val" id="ip-fluct">—</span><div class="iparam-bar"><div class="iparam-fill" id="ib-fluct"></div></div></div>
+            </div>
+            <div class="info-soundtype" id="info-soundtype"></div>
+          </div>
+        </div>
+      </div>
+      <div class="map-container" id="map-container"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 三维地形 -->
+<section id="terrain" class="section section--terrain">
+  <div class="section-inner section-inner--wide">
+    <header class="section-header">
+      <div class="section-tag">§ 05 · 三维地形</div>
+      <h2 class="section-title">声音的<br/>地形起伏</h2>
+      <p class="section-desc">拖拽旋转视角 · 滚轮缩放 · 切换声源分轨</p>
+    </header>
+
+    <div class="terrain-layout">
+      <div class="terrain-controls">
+        <div class="ctrl-label">时段视图</div>
+        <div class="terrain-time-btns" id="terrain-time-btns">
+          <button class="ttbtn active" data-time="morning">早晨</button>
+          <button class="ttbtn" data-time="evening">傍晚</button>
+        </div>
+
+        <div class="ctrl-label">声景点位</div>
+        <div class="terrain-place-btns" id="terrain-place-btns">
+          <button class="place-btn active" data-place="A">钢琴湖</button>
+          <button class="place-btn" data-place="B">古树保护区</button>
+          <button class="place-btn" data-place="C">一教池塘</button>
+        </div>
+
+        <div class="ctrl-label">声源分轨</div>
+        <div class="volume-tip">← 向左声音变小 | 向右声音变大 →</div>
+        <div class="track-controls">
+          <div class="track-row">
+            <span class="track-dot bio"></span>
+            <label for="tr-bio">生物声</label>
+            <input type="range" id="tr-bio" min="0" max="100" value="0" class="track-slider" />
+          </div>
+          <div class="track-row">
+            <span class="track-dot human"></span>
+            <label for="tr-human">人为声</label>
+            <input type="range" id="tr-human" min="0" max="100" value="0" class="track-slider" />
+          </div>
+          <div class="track-row">
+            <span class="track-dot mech"></span>
+            <label for="tr-mech">机械声</label>
+            <input type="range" id="tr-mech" min="0" max="100" value="0" class="track-slider" />
+          </div>
+        </div>
+
+        <div class="ctrl-label">图例</div>
+        <div class="terrain-legend">
+          <div class="tl-row"><span class="tl-color tl-color-1"></span> &lt; 45 dB</div>
+          <div class="tl-row"><span class="tl-color tl-color-2"></span> 45–55 dB</div>
+          <div class="tl-row"><span class="tl-color tl-color-3"></span> 55–65 dB</div>
+          <div class="tl-row"><span class="tl-color tl-color-4"></span> 65–70 dB</div>
+          <div class="tl-row"><span class="tl-color tl-color-5"></span> 70–75 dB</div>
+          <div class="tl-row"><span class="tl-color tl-color-6"></span> &gt; 75 dB</div>
+        </div>
+      </div>
+
+      <div class="terrain-canvas-wrap">
+        <canvas id="terrain-canvas"></canvas>
+        <div class="terrain-overlay-text"><span id="terrain-fps">—</span> fps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 结语 -->
+<section id="outro" class="section section--outro">
+  <div class="section-inner">
+    <div class="outro-content">
+      <div class="outro-wave-line"></div>
+      <h2 class="outro-title">自然从未沉默</h2>
+      <p class="outro-body">
+        声音不是背景，而是感知结构。<br/>
+        环境不仅被看见，也被听见。
+      </p>
+      <div class="outro-credits">
+        <div>中国传媒大学 · 声音研究实验室 · 2026</div>
+        <div>数据采集 / 分析 / 可视化</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+
+<script src="js/charts.js"></script>
+<script src="js/map.js"></script>
+<script src="js/viz3d.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+// 声景音频播放器
+const audioManager = {
+  place: 'A',
+  time: 'morning',
+  audios: {},
+
+  loadAll() {
+    const places = ['A','B','C'];
+    const times = ['morning','evening'];
+    const types = ['bio','human','mech'];
+    places.forEach(p => {
+      times.forEach(t => {
+        types.forEach(ty => {
+          const key = `${p}-${t}-${ty}`;
+          const a = new Audio(`assets/audio/${key}.mp3`);
+          a.loop = true;
+          a.volume = 1.0;
+          this.audios[key] = a;
+        });
+      });
+    });
+  },
+
+  stopAll() {
+    Object.values(this.audios).forEach(a => a.pause());
+  },
+
+  playCurrent() {
+    this.stopAll();
+    ['bio','human','mech'].forEach(ty => {
+      const key = `${this.place}-${this.time}-${ty}`;
+      if (this.audios[key]) this.audios[key].play().catch(()=>{});
+    });
+    this.syncVolume();
+  },
+
+  syncVolume() {
+    const v = id => document.getElementById(id) ? document.getElementById(id).value / 100 : 1;
+    const prefix = `${this.place}-${this.time}`;
+    if (this.audios[prefix+'-bio']) this.audios[prefix+'-bio'].volume = v('tr-bio');
+    if (this.audios[prefix+'-human']) this.audios[prefix+'-human'].volume = v('tr-human');
+    if (this.audios[prefix+'-mech']) this.audios[prefix+'-mech'].volume = v('tr-mech');
+  }
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+  audioManager.loadAll();
+
+  document.querySelectorAll('.place-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      audioManager.place = btn.dataset.place;
+      audioManager.playCurrent();
+    });
+  });
+
+  document.querySelectorAll('.ttbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      audioManager.time = btn.dataset.time;
+      audioManager.playCurrent();
+    });
+  });
+
+  document.querySelectorAll('.track-slider').forEach(s => {
+    s.addEventListener('input', () => audioManager.syncVolume());
+  });
+
+  document.addEventListener('mapLocationChange', e => {
+    audioManager.place = e.detail.locationId;
+    audioManager.time = e.detail.time;
+    audioManager.playCurrent();
+  });
+});
+
+document.addEventListener('click', function unlockAudioOnce() {
+  document.removeEventListener('click', unlockAudioOnce);
+  const tempAudio = new Audio();
+  tempAudio.play().catch(() => {});
+}, { once: true });
+</script>
+
+</body>
+</html>
